@@ -22,6 +22,3 @@ Profissionais autônomos de diversas áreas como fisioterapeutas, designers, pro
 
 Empoderar o profissional autônomo com uma plataforma acessível, intuitiva e alinhada à realidade brasileira.
 
----
-
-Se quiser, posso adicionar instruções técnicas (ex: como rodar localmente, pré-requisitos) ou uma seção sobre o roadmap. Deseja incluir mais alguma parte?
