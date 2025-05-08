@@ -33,8 +33,8 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center" onClick={closeMenu}>
-              <Briefcase className="h-8 w-8 text-indigo-600" />
-              <span className="ml-2 text-xl font-bold text-indigo-600">
+              <Briefcase className="h-8 w-8 text-purple-800" />
+              <span className="ml-2 text-xl font-bold text-purple-800">
                 Nomos
               </span>
             </Link>
@@ -47,8 +47,8 @@ const Navbar: React.FC = () => {
                   to="/sobre"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/sobre")
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+                      ? "bg-purple-800 text-white"
+                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
                   }`}
                 >
                   Sobre
@@ -57,8 +57,8 @@ const Navbar: React.FC = () => {
                   to="/recibo-gratis"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/recibo-gratis")
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+                      ? "bg-purple-800 text-white"
+                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
                   }`}
                 >
                   Recibo Grátis
@@ -67,8 +67,8 @@ const Navbar: React.FC = () => {
                   to="/precos"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/precos")
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+                      ? "bg-purple-800 text-white"
+                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
                   }`}
                 >
                   Preços
@@ -77,21 +77,21 @@ const Navbar: React.FC = () => {
                   to="/contato"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/contato")
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+                      ? "bg-purple-800 text-white"
+                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
                   }`}
                 >
                   Contato
                 </Link>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 rounded-md"
+                  className="px-4 py-2 text-sm font-medium text-purple-800 hover:bg-purple-300 rounded-md"
                 >
                   Entrar
                 </Link>
                 <Link
                   to="/cadastro"
-                  className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+                  className="px-4 py-2 text-sm font-medium text-white bg-purple-800 hover:bg-purple-900 rounded-md"
                 >
                   Começar Grátis
                 </Link>

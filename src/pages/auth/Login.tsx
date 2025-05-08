@@ -67,7 +67,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col md:flex-row">
-      <div className="hidden md:flex md:w-1/2 bg-blue-600 text-white p-8 flex-col justify-between">
+      <div className="hidden md:flex md:w-1/2 bg-orange-500 text-white p-8 flex-col justify-between">
         <div className="flex items-center space-x-2">
           <LayoutGrid size={32} className="text-white" />
           <span className="text-2xl font-bold">Nomos</span>
@@ -83,25 +83,25 @@ const Login: React.FC = () => {
           </p>
 
           <div className="grid grid-cols-2 gap-4 pt-6">
-            <div className="bg-blue-500/30 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-purple-700/70 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="font-semibold mb-1">Recibos Profissionais</h3>
               <p className="text-sm text-blue-100">
                 Emita recibos personalizados com facilidade
               </p>
             </div>
-            <div className="bg-blue-500/30 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-purple-700/70 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="font-semibold mb-1">Gestão de Clientes</h3>
               <p className="text-sm text-blue-100">
                 Organize seus atendimentos e histórico
               </p>
             </div>
-            <div className="bg-blue-500/30 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-purple-700/70 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="font-semibold mb-1">Relatórios Financeiros</h3>
               <p className="text-sm text-blue-100">
                 Acompanhe seus ganhos mensais de forma simples
               </p>
             </div>
-            <div className="bg-blue-500/30 p-4 rounded-lg backdrop-blur-sm">
+            <div className="bg-purple-700/70 p-4 rounded-lg backdrop-blur-sm">
               <h3 className="font-semibold mb-1">Agenda Inteligente</h3>
               <p className="text-sm text-blue-100">
                 Gerencie seus horários e evite conflitos
@@ -118,8 +118,8 @@ const Login: React.FC = () => {
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="flex md:hidden items-center justify-center mb-8">
-            <LayoutGrid size={32} className="text-blue-600" />
-            <span className="text-2xl font-bold ml-2 text-blue-600">Nomos</span>
+            <LayoutGrid size={32} className="text-orange-500" />
+            <span className="text-2xl font-bold ml-2 text-orange-500">Nomos</span>
           </div>
 
           <div className="bg-white rounded-xl shadow-xl p-8 w-full">
@@ -167,7 +167,7 @@ const Login: React.FC = () => {
                       name="rememberMe"
                       checked={form.rememberMe}
                       onChange={handleChange}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded transition-colors duration-200"
+                      className="h-4 w-4 text-orange-500 focus:ring-orange-300 border-gray-300 rounded transition-colors duration-200"
                     />
                     <span className="ml-2 text-sm text-gray-700">
                       Lembrar-me
@@ -175,7 +175,7 @@ const Login: React.FC = () => {
                   </label>
                   <button
                     type="button"
-                    className="text-sm font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    className="text-sm font-medium text-orange-500 hover:text-orange-900 transition-colors duration-200"
                   >
                     Esqueceu a senha?
                   </button>
@@ -196,7 +196,7 @@ const Login: React.FC = () => {
                     Ainda não tem uma conta?{" "}
                     <button
                       type="button"
-                      className="font-medium text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                      className="font-medium text-orange-500 hover:text-orange-900 transition-colors duration-200"
                     >
                       Cadastre-se
                     </button>

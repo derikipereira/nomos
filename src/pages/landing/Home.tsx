@@ -5,27 +5,27 @@ import { Receipt, Shield, Clock, FileCheck } from "lucide-react";
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <section className="bg-gradient-to-r from-blue-800 to-blue-900 text-white">
+      <section className="bg-gradient-to-r from-orange-500 to-orange-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 md:pr-8">
               <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
                 Gerencie seu trabalho de forma simples e profissional
               </h1>
-              <p className="text-lg md:text-xl mb-8 text-blue-100">
+              <p className="text-lg md:text-xl mb-8 text-orange-100">
                 Organize suas finanças, crie recibos digitais, acompanhe
                 clientes e otimize sua rotina como profissional autônomo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/precos"
-                  className="px-6 py-3 bg-yellow-500 text-blue-900 font-medium rounded-lg transition-transform hover:scale-105 text-center"
+                  className="px-6 py-3 bg-purple-800 text-white font-medium rounded-lg transition-transform hover:scale-105 text-center"
                 >
                   Começar Agora
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+            {/* <div className="md:w-1/2 mt-10 md:mt-0 flex justify-center">
               <div className="relative">
                 <div className="absolute -inset-0.5 bg-yellow-400 rounded-lg blur-sm opacity-30 animate-pulse"></div>
                 <div className="relative bg-white p-4 rounded-lg shadow-xl">
@@ -64,7 +64,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-blue-50 p-6 rounded-xl transition-transform hover:scale-105">
-              <div className="bg-blue-800 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+              <div className="bg-orange-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
                 <Clock className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -138,7 +138,7 @@ const Home: React.FC = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">
                 1
               </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
@@ -153,7 +153,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">
                 2
               </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
@@ -168,7 +168,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold">
                 3
               </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
@@ -186,7 +186,7 @@ const Home: React.FC = () => {
           <div className="mt-12 text-center">
             <Link
               to="/precos"
-              className="px-6 py-3 bg-blue-800 text-white font-medium rounded-lg hover:bg-blue-700 inline-flex items-center"
+              className="px-6 py-3 bg-purple-800 text-white font-medium rounded-lg hover:bg-purple-500 inline-flex items-center"
             >
               <Receipt className="h-5 w-5 mr-2" />
               Começar Agora
@@ -195,7 +195,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-r from-blue-800 to-blue-900 text-white">
+      <section className="py-16 bg-gradient-to-r from-orange-600 to-orange-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">
             Transforme sua rotina profissional
@@ -206,7 +206,7 @@ const Home: React.FC = () => {
           </p>
           <Link
             to="/precos"
-            className="px-8 py-4 bg-yellow-500 text-blue-900 font-medium rounded-lg text-lg transition-transform hover:scale-105 inline-block"
+            className="px-8 py-4 bg-purple-800 text-white font-medium rounded-lg text-lg transition-transform hover:scale-105 inline-block"
           >
             Começar Agora
           </Link>

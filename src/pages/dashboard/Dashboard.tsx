@@ -60,9 +60,9 @@ const Dashboard: React.FC = () => {
               <Receipt className="h-6 w-6 text-blue-800" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total de Recibos</p>
-              <h3 className="text-2xl font-bold text-gray-900">{stats.totalReceipts}</h3>
-              <p className="text-xs text-gray-500">+{stats.monthlyReceipts} este mês</p>
+              <p className="text-sm text-gray-500">Recibos desse mês</p>
+              <h3 className="text-2xl font-bold text-gray-900">{stats.monthlyReceipts}</h3>
+              <p className="text-xs text-gray-500">{stats.totalReceipts} recibos totais</p>
             </div>
           </div>
           
@@ -71,9 +71,9 @@ const Dashboard: React.FC = () => {
               <Banknote className="h-6 w-6 text-green-700" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Receita Total</p>
-              <h3 className="text-2xl font-bold text-gray-900">{stats.totalRevenue}</h3>
-              <p className="text-xs text-gray-500">{stats.monthlyRevenue} este mês</p>
+              <p className="text-sm text-gray-500">Receita desse mês</p>
+              <h3 className="text-2xl font-bold text-gray-900">{stats.monthlyRevenue}</h3>
+              <p className="text-xs text-gray-500">{stats.totalRevenue} de receita total</p>
             </div>
           </div>
           
@@ -95,7 +95,6 @@ const Dashboard: React.FC = () => {
             <div>
               <p className="text-sm text-gray-500">Recibos Pendentes</p>
               <h3 className="text-2xl font-bold text-gray-900">{stats.pendingReceipts}</h3>
-              <p className="text-xs text-gray-500">Aguardando envio</p>
             </div>
           </div>
         </div>

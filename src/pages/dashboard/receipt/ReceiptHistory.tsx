@@ -12,23 +12,21 @@ const ReceiptHistory: React.FC = () => {
     direction: 'desc'
   });
 
-  // Sample receipt data - in a real app this would come from an API
+  
   const receiptData = [
-    { id: 1, client: 'Empresa ABC Ltda.', service: 'Consultoria Marketing Digital', value: 'R$ 950,00', date: '25/05/2025', status: 'sent' },
-    { id: 2, client: 'João Silva', service: 'Desenvolvimento Website', value: 'R$ 1.500,00', date: '20/05/2025', status: 'downloaded' },
-    { id: 3, client: 'Maria Oliveira', service: 'Design de Logo', value: 'R$ 450,00', date: '18/05/2025', status: 'viewed' },
-    { id: 4, client: 'Carlos Ferreira', service: 'Edição de Vídeo', value: 'R$ 650,00', date: '12/05/2025', status: 'sent' },
-    { id: 5, client: 'Renata Souza', service: 'Consultoria SEO', value: 'R$ 800,00', date: '05/05/2025', status: 'paid' },
-    { id: 6, client: 'Fernando Almeida', service: 'Desenvolvimento Mobile App', value: 'R$ 3.500,00', date: '30/04/2025', status: 'paid' },
-    { id: 7, client: 'Ana Beatriz', service: 'Treinamento Excel', value: 'R$ 350,00', date: '25/04/2025', status: 'viewed' },
-    { id: 8, client: 'Marcos Santos', service: 'Consultoria Financeira', value: 'R$ 1.200,00', date: '20/04/2025', status: 'downloaded' },
-    { id: 9, client: 'Luciana Costa', service: 'Social Media Management', value: 'R$ 600,00', date: '15/04/2025', status: 'paid' },
-    { id: 10, client: 'Roberto Martins', service: 'Criação de Conteúdo', value: 'R$ 550,00', date: '10/04/2025', status: 'sent' },
+    { id: 1, client: 'Empresa ABC Ltda.', service: 'Consultoria Marketing Digital', value: 'R$ 950,00', date: '25/05/2025', status: 'pending' },
+    { id: 2, client: 'João Silva', service: 'Desenvolvimento Website', value: 'R$ 1.500,00', date: '20/05/2025', status: 'finished' },
+    { id: 3, client: 'Maria Oliveira', service: 'Design de Logo', value: 'R$ 450,00', date: '18/05/2025', status: 'finished' },
+    { id: 4, client: 'Carlos Ferreira', service: 'Edição de Vídeo', value: 'R$ 650,00', date: '12/05/2025', status: 'pending' },
+    { id: 5, client: 'Renata Souza', service: 'Consultoria SEO', value: 'R$ 800,00', date: '05/05/2025', status: 'finished' },
+    { id: 6, client: 'Fernando Almeida', service: 'Desenvolvimento Mobile App', value: 'R$ 3.500,00', date: '30/04/2025', status: 'pending' },
+    { id: 7, client: 'Ana Beatriz', service: 'Treinamento Excel', value: 'R$ 350,00', date: '25/04/2025', status: 'finished' },
+    { id: 8, client: 'Marcos Santos', service: 'Consultoria Financeira', value: 'R$ 1.200,00', date: '20/04/2025', status: 'finished' },
+    { id: 9, client: 'Luciana Costa', service: 'Social Media Management', value: 'R$ 600,00', date: '15/04/2025', status: 'pending' },
+    { id: 10, client: 'Roberto Martins', service: 'Criação de Conteúdo', value: 'R$ 550,00', date: '10/04/2025', status: 'finished' },
   ];
 
-  // Apply filters and search
   const filteredReceipts = receiptData.filter(receipt => {
-    // Filter by period
     if (selectedFilters.period === 'month') {
       const currentMonth = new Date().getMonth();
       const receiptMonth = parseInt(receipt.date.split('/')[1]) - 1;
@@ -39,12 +37,10 @@ const ReceiptHistory: React.FC = () => {
       if (receiptYear !== currentYear) return false;
     }
     
-    // Filter by status
     if (selectedFilters.status !== 'all' && receipt.status !== selectedFilters.status) {
       return false;
     }
     
-    // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       return (
@@ -58,7 +54,6 @@ const ReceiptHistory: React.FC = () => {
     return true;
   });
   
-  // Apply sorting
   const sortedReceipts = [...filteredReceipts].sort((a, b) => {
     if (sortConfig.key === 'date') {
       const dateA = a.date.split('/').reverse().join('');
@@ -99,14 +94,10 @@ const ReceiptHistory: React.FC = () => {
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'sent':
-        return { label: 'Enviado', className: 'bg-blue-100 text-blue-800' };
-      case 'viewed':
-        return { label: 'Visualizado', className: 'bg-green-100 text-green-800' };
-      case 'downloaded':
-        return { label: 'Baixado', className: 'bg-purple-100 text-purple-800' };
-      case 'paid':
-        return { label: 'Pago', className: 'bg-teal-100 text-teal-800' };
+      case 'pending':
+        return { label: 'Pendente', className: 'bg-yellow-100 text-yellow-800' };
+      case 'finished':
+        return { label: 'Finalizado', className: 'bg-green-100 text-green-800' };
       default:
         return { label: 'Desconhecido', className: 'bg-gray-100 text-gray-800' };
     }
@@ -140,7 +131,6 @@ const ReceiptHistory: React.FC = () => {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
           <div className="flex flex-col sm:flex-row gap-4 items-center">
             <div className="flex items-center">
@@ -178,7 +168,6 @@ const ReceiptHistory: React.FC = () => {
           </div>
         </div>
 
-        {/* Receipt table */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">

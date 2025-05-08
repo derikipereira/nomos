@@ -12,7 +12,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({
   return (
     <div>
       <AppBar />
+      <div className="pt-16">
       {children}
+      </div>
       <FooterDash />
     </div>
   );

@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
     "font-medium rounded-lg transition-all duration-200 flex items-center justify-center";
 
   const variantStyles = {
-    primary: "bg-blue-600 hover:bg-blue-700 text-white shadow-sm",
+    primary: "bg-purple-700 hover:bg-purple-500 text-white shadow-sm",
     secondary: "bg-gray-100 hover:bg-gray-200 text-gray-800",
     outline: "border border-gray-300 hover:bg-gray-100 text-gray-800",
     text: "text-blue-600 hover:text-blue-700 hover:bg-blue-50",
