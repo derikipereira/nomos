@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { LayoutGrid, FileText, Users, Settings, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface AppBarProps {
   title?: string;
@@ -47,9 +47,9 @@ const AppBar: React.FC<AppBarProps> = ({ title = "Dashboard" }) => {
         <nav className="p-4">
           <div className="space-y-1">
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className="flex items-center space-x-3 rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-100 group"
               >
                 <item.icon className="h-5 w-5 flex-shrink-0" />
@@ -60,7 +60,7 @@ const AppBar: React.FC<AppBarProps> = ({ title = "Dashboard" }) => {
                 >
                   {item.label}
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </nav>
