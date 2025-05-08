@@ -4,7 +4,6 @@ import { Users, Shield, Award, CheckCircle } from 'lucide-react';
 const About: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Hero Section */}
       <section className="bg-gradient-to-r from-indigo-800 to-indigo-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -17,7 +16,6 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Mission Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -60,7 +58,6 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nossos Valores</h2>
@@ -92,49 +89,6 @@ const About: React.FC = () => {
                 Buscamos constantemente aprimorar nossos serviços e oferecer a melhor experiência.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nossa Equipe</h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                name: 'Carlos Silva',
-                role: 'CEO & Fundador',
-                image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300'
-              },
-              {
-                name: 'Ana Santos',
-                role: 'CTO',
-                image: 'https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg?auto=compress&cs=tinysrgb&w=300'
-              },
-              {
-                name: 'Roberto Lima',
-                role: 'Head de Produto',
-                image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=300'
-              },
-              {
-                name: 'Mariana Costa',
-                role: 'Head de Design',
-                image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=300'
-              }
-            ].map((member, index) => (
-              <div key={index} className="text-center">
-                <div className="relative">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-48 h-48 rounded-full mx-auto mb-4 object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
-                <p className="text-gray-600">{member.role}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

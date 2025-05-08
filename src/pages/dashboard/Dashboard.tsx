@@ -5,7 +5,6 @@ import { Receipt, FileText, TrendingUp, Users, Calendar, Banknote, Plus } from '
 const Dashboard: React.FC = () => {
   const [period, setPeriod] = useState('month');
 
-  // Sample data for dashboard - in a real app this would come from an API
   const stats = {
     totalReceipts: 24,
     monthlyReceipts: 6,
@@ -15,7 +14,6 @@ const Dashboard: React.FC = () => {
     pendingReceipts: 2
   };
 
-  // Sample receipt data - in a real app this would come from an API
   const recentReceipts = [
     { id: 1, client: 'Empresa ABC Ltda.', service: 'Consultoria Marketing Digital', value: 'R$ 950,00', date: '25/05/2025', status: 'sent' },
     { id: 2, client: 'João Silva', service: 'Desenvolvimento Website', value: 'R$ 1.500,00', date: '20/05/2025', status: 'downloaded' },
@@ -56,7 +54,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6 flex items-center">
             <div className="bg-blue-100 rounded-full p-3 mr-4">
@@ -103,9 +100,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Main content area */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Recent receipts */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -171,7 +166,6 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           
-          {/* Quick actions */}
           <div>
             <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Ações Rápidas</h2>
@@ -218,7 +212,6 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
             
-            {/* Tips card */}
             <div className="bg-gradient-to-r from-blue-800 to-blue-700 rounded-lg shadow-sm p-6 text-white">
               <h2 className="text-lg font-semibold mb-4">💡 Dicas Rápidas</h2>
               <ul className="space-y-2 text-sm">

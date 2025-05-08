@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Receipt, Shield, Clock, FileCheck } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Receipt, Shield, Clock, FileCheck } from "lucide-react";
 
 const Home: React.FC = () => {
   return (
@@ -13,20 +13,15 @@ const Home: React.FC = () => {
                 Gerencie seu trabalho de forma simples e profissional
               </h1>
               <p className="text-lg md:text-xl mb-8 text-blue-100">
-                Organize suas finanças, crie recibos digitais, acompanhe clientes e otimize sua rotina como profissional autônomo.
+                Organize suas finanças, crie recibos digitais, acompanhe
+                clientes e otimize sua rotina como profissional autônomo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link 
-                  to="/novo-recibo" 
+                <Link
+                  to="/precos"
                   className="px-6 py-3 bg-yellow-500 text-blue-900 font-medium rounded-lg transition-transform hover:scale-105 text-center"
                 >
                   Começar Agora
-                </Link>
-                <Link
-                  to="/dashboard" 
-                  className="px-6 py-3 bg-white/10 backdrop-blur-sm text-white font-medium rounded-lg hover:bg-white/20 text-center"
-                >
-                  Acessar Dashboard
                 </Link>
               </div>
             </div>
@@ -35,17 +30,22 @@ const Home: React.FC = () => {
                 <div className="absolute -inset-0.5 bg-yellow-400 rounded-lg blur-sm opacity-30 animate-pulse"></div>
                 <div className="relative bg-white p-4 rounded-lg shadow-xl">
                   <div className="border-b border-gray-200 pb-2 mb-4">
-                    <h3 className="text-lg font-semibold text-blue-800">SISTEMA DE GESTÃO</h3>
+                    <h3 className="text-lg font-semibold text-blue-800">
+                      SISTEMA DE GESTÃO
+                    </h3>
                   </div>
                   <div className="space-y-3 text-gray-800">
                     <p className="text-sm">
-                      <span className="font-medium">Profissional:</span> Ana Silva
+                      <span className="font-medium">Profissional:</span> Ana
+                      Silva
                     </p>
                     <p className="text-sm">
-                      <span className="font-medium">Serviço:</span> Consultoria Marketing Digital
+                      <span className="font-medium">Serviço:</span> Consultoria
+                      Marketing Digital
                     </p>
                     <p className="text-sm">
-                      <span className="font-medium">Cliente:</span> Empresa ABC Ltda.
+                      <span className="font-medium">Cliente:</span> Empresa ABC
+                      Ltda.
                     </p>
                     <p className="text-sm">
                       <span className="font-medium">Status:</span> Concluído
@@ -72,40 +72,53 @@ const Home: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Tudo o que você precisa para gerenciar seu trabalho</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Tudo o que você precisa para gerenciar seu trabalho
+            </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              O Nomos é mais do que um gerador de recibos. Ele é uma solução completa para ajudar profissionais autônomos a organizar suas finanças, clientes e serviços.
+              O Nomos é mais do que um gerador de recibos. Ele é uma solução
+              completa para ajudar profissionais autônomos a organizar suas
+              finanças, clientes e serviços.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-blue-50 p-6 rounded-xl transition-transform hover:scale-105">
               <div className="bg-blue-800 rounded-full w-12 h-12 flex items-center justify-center mb-4">
                 <Clock className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Agilidade</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Agilidade
+              </h3>
               <p className="text-gray-600">
-                Economize tempo com ferramentas que simplificam a criação de recibos e a gestão de tarefas.
+                Economize tempo com ferramentas que simplificam a criação de
+                recibos e a gestão de tarefas.
               </p>
             </div>
-            
+
             <div className="bg-teal-50 p-6 rounded-xl transition-transform hover:scale-105">
               <div className="bg-teal-700 rounded-full w-12 h-12 flex items-center justify-center mb-4">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Segurança</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Segurança
+              </h3>
               <p className="text-gray-600">
-                Seus dados e informações financeiras protegidos com tecnologia de ponta.
+                Seus dados e informações financeiras protegidos com tecnologia
+                de ponta.
               </p>
             </div>
-            
+
             <div className="bg-yellow-50 p-6 rounded-xl transition-transform hover:scale-105">
               <div className="bg-yellow-500 rounded-full w-12 h-12 flex items-center justify-center mb-4">
                 <FileCheck className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Organização</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Organização
+              </h3>
               <p className="text-gray-600">
-                Mantenha tudo em um só lugar: recibos, clientes, serviços e histórico de pagamentos.
+                Mantenha tudo em um só lugar: recibos, clientes, serviços e
+                histórico de pagamentos.
               </p>
             </div>
           </div>
@@ -115,47 +128,64 @@ const Home: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Como Funciona</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Como Funciona
+            </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Três passos simples para gerenciar seu trabalho de forma eficiente
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">1</div>
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+                1
+              </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Cadastre suas informações</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Cadastre suas informações
+                </h3>
                 <p className="text-gray-600">
-                  Insira seus dados profissionais e configure seu perfil para começar.
+                  Insira seus dados profissionais e configure seu perfil para
+                  começar.
                 </p>
               </div>
             </div>
-            
+
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">2</div>
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+                2
+              </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Gerencie seus serviços</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Gerencie seus serviços
+                </h3>
                 <p className="text-gray-600">
-                  Adicione detalhes de clientes, serviços e pagamentos de forma prática.
+                  Adicione detalhes de clientes, serviços e pagamentos de forma
+                  prática.
                 </p>
               </div>
             </div>
-            
+
             <div className="relative">
-              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">3</div>
+              <div className="absolute top-0 left-0 -ml-4 mt-2 md:ml-0 md:mt-0 w-10 h-10 bg-blue-800 rounded-full flex items-center justify-center text-white font-bold">
+                3
+              </div>
               <div className="bg-white p-6 pt-12 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Acompanhe tudo</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Acompanhe tudo
+                </h3>
                 <p className="text-gray-600">
-                  Tenha controle total sobre seus recibos, histórico de clientes e relatórios.
+                  Tenha controle total sobre seus recibos, histórico de clientes
+                  e relatórios.
                 </p>
               </div>
             </div>
           </div>
-          
+
           <div className="mt-12 text-center">
-            <Link 
-              to="/novo-recibo" 
+            <Link
+              to="/precos"
               className="px-6 py-3 bg-blue-800 text-white font-medium rounded-lg hover:bg-blue-700 inline-flex items-center"
             >
               <Receipt className="h-5 w-5 mr-2" />
@@ -167,12 +197,15 @@ const Home: React.FC = () => {
 
       <section className="py-16 bg-gradient-to-r from-blue-800 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6">Transforme sua rotina profissional</h2>
+          <h2 className="text-3xl font-bold mb-6">
+            Transforme sua rotina profissional
+          </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Experimente o Nomos e veja como é fácil gerenciar seu trabalho e impressionar seus clientes.
+            Experimente o Nomos e veja como é fácil gerenciar seu trabalho e
+            impressionar seus clientes.
           </p>
-          <Link 
-            to="/novo-recibo" 
+          <Link
+            to="/precos"
             className="px-8 py-4 bg-yellow-500 text-blue-900 font-medium rounded-lg text-lg transition-transform hover:scale-105 inline-block"
           >
             Começar Agora
