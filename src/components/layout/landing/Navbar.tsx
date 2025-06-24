@@ -54,26 +54,6 @@ const Navbar: React.FC = () => {
                   Sobre
                 </Link>
                 <Link
-                  to="/recibo-gratis"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive("/recibo-gratis")
-                      ? "bg-purple-800 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
-                  }`}
-                >
-                  Recibo Grátis
-                </Link>
-                <Link
-                  to="/precos"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive("/precos")
-                      ? "bg-purple-800 text-white"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-purple-800"
-                  }`}
-                >
-                  Preços
-                </Link>
-                <Link
                   to="/contato"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/contato")

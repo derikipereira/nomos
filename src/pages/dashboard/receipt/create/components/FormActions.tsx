@@ -6,6 +6,7 @@ interface FormActionsProps {
   showPreview: boolean;
   onPreview: (visible: boolean) => void;
   onSubmit: () => void;
+  isLoading: boolean;
 }
 
 const FormActions: React.FC<FormActionsProps> = ({
@@ -13,6 +14,7 @@ const FormActions: React.FC<FormActionsProps> = ({
   showPreview,
   onPreview,
   onSubmit,
+  isLoading,
 }) => {
   return (
     <div className="md:col-span-2 pt-6 border-t border-gray-200">
@@ -28,24 +30,21 @@ const FormActions: React.FC<FormActionsProps> = ({
 
         <button
           type="button"
-          className="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center text-sm"
+          className="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center justify-center text-sm"
           onClick={() => onPreview(!showPreview)}
         >
-          {showPreview ? (
-            <X className="h-4 w-4 mr-2" />
-          ) : (
-            <Eye className="h-4 w-4 mr-2" />
-          )}
-          {showPreview ? "Fechar Visualização" : "Visualizar Recibo"}
+          {showPreview ? <X className="h-4 w-4 mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
+          {showPreview ? "Ocultar PDF" : "Visualizar PDF"}
         </button>
 
         <button
           type="button"
           onClick={onSubmit}
-          className="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center"
+          disabled={isLoading}
+          className="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center disabled:bg-blue-400"
         >
           <Save className="h-4 w-4 mr-2" />
-          Salvar Recibo
+          {isLoading ? 'Salvando...' : 'Salvar Recibo'}
         </button>
       </div>
     </div>

@@ -1,133 +1,91 @@
-import React from "react";
-import { Download, Send } from "lucide-react";
+import React from 'react';
+import { Download } from 'lucide-react';
+import { Document, Page, PDFDownloadLink, PDFViewer, StyleSheet, Text, View } from '@react-pdf/renderer';
 
-interface ReceiptPreviewProps {
-  formData: {
-    client: string;
-    email: string;
-    service: string;
-    description: string;
-    value: string;
-    date: string;
-    paymentMethod: string;
-    notes: string;
-  };
+interface Client {
+  id: string;
+  name: string;
+  cpf: string;
+}
+interface FormData {
+  customerId: string;
+  service_type: string;
+  description: string;
+  value: number;
+  date: string;
+  payment_type: string;
+  notes: string;
 }
 
-const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ formData }) => {
-  const formatDate = (dateString: string) => {
-    const [year, month, day] = dateString.split("-");
-    return `${day}/${month}/${year}`;
-  };
+const pdfStyles = StyleSheet.create({
+  page: { fontFamily: 'Helvetica', fontSize: 11, padding: 40, backgroundColor: '#fff', color: '#333' },
+  header: { textAlign: 'center', borderBottomWidth: 1, borderBottomColor: '#eaeaea', paddingBottom: 20, marginBottom: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', color: '#1a202c' },
+  valueHeader: { fontSize: 20, fontWeight: 'bold', marginTop: 10 },
+  section: { marginBottom: 20 },
+  label: { fontSize: 10, color: '#666' },
+  content: { fontSize: 12, fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ccc', paddingBottom: 4, marginTop: 2 },
+  footer: { position: 'absolute', bottom: 30, left: 40, right: 40, textAlign: 'center', color: 'grey', fontSize: 9 },
+  signature: { borderTop: 1, borderTopColor: '#333', width: '60%', margin: 'auto', marginTop: 80, paddingTop: 5 }
+});
+
+const ReceiptPDFDocument: React.FC<{ formData: FormData, selectedClient?: Client }> = ({ formData, selectedClient }) => (
+  <Document>
+    <Page size="A4" style={pdfStyles.page}>
+      <View style={pdfStyles.header}>
+        <Text style={pdfStyles.title}>RECIBO</Text>
+        <Text style={pdfStyles.valueHeader}>{formData.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
+      </View>
+      <View style={pdfStyles.section}>
+        <Text style={pdfStyles.label}>Recebemos de:</Text>
+        <Text style={pdfStyles.content}>{selectedClient?.name || '____________________'}</Text>
+        <Text style={{ ...pdfStyles.label, marginTop: 4 }}>CPF: {selectedClient?.cpf || '____________________'}</Text>
+      </View>
+      <View style={pdfStyles.section}>
+        <Text style={pdfStyles.label}>Referente a:</Text>
+        <Text style={pdfStyles.content}>{formData.service_type || '____________________'}</Text>
+        {formData.description && <Text style={{ ...pdfStyles.label, marginTop: 4 }}>{formData.description}</Text>}
+      </View>
+      <View style={{ ...pdfStyles.section, flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View><Text style={pdfStyles.label}>Forma de Pagamento:</Text><Text style={{ fontSize: 12 }}>{formData.payment_type}</Text></View>
+        <View style={{ textAlign: 'right' }}><Text style={pdfStyles.label}>Data:</Text><Text style={{ fontSize: 12 }}>{new Date(formData.date + 'T00:00:00').toLocaleDateString('pt-BR')}</Text></View>
+      </View>
+      {formData.notes && <View style={pdfStyles.section}><Text style={pdfStyles.label}>Observações:</Text><Text style={{ fontSize: 11 }}>{formData.notes}</Text></View>}
+      <View style={pdfStyles.signature}><Text style={{ textAlign: 'center' }}>Assinatura</Text></View>
+      <Text style={pdfStyles.footer}>Este recibo é válido como comprovante de prestação de serviço.</Text>
+    </Page>
+  </Document>
+);
+
+interface ReceiptPreviewProps {
+  formData: FormData;
+  selectedClient?: Client;
+}
+
+const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({ formData, selectedClient }) => {
+  const pdfFileName = `Recibo_${selectedClient?.name.replace(/\s/g, '_') || 'Cliente'}_${formData.date}.pdf`;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="p-8">
-        <div className="text-center border-b border-gray-200 pb-6 mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">RECIBO</h1>
-          <p className="text-xl font-bold text-gray-900 mt-4">
-            R$ {formData.value.replace("R$", "").trim() || "0,00"}
-          </p>
-        </div>
-
-        <div className="text-sm text-gray-600 mb-8">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="font-medium text-gray-900">Ana Silva</p>
-              <p>CPF: 123.456.789-00</p>
-              <p>Tel: (11) 98765-4321</p>
-              <p>ana.silva@exemplo.com</p>
-            </div>
-            <div className="text-right">
-              <p>Nº 0001</p>
-              <p>{formData.date ? formatDate(formData.date) : "DD/MM/AAAA"}</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div>
-            <p className="text-gray-600">Recebemos de</p>
-            <p className="font-medium text-gray-900 border-b border-gray-300 pb-1">
-              {formData.client || "_____________________"}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-gray-600">A importância de</p>
-            <p className="font-medium text-gray-900 border-b border-gray-300 pb-1">
-              {formData.value || "_____________________"}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-gray-600">Referente a</p>
-            <p className="font-medium text-gray-900 border-b border-gray-300 pb-1">
-              {formData.service || "_____________________"}
-            </p>
-            {formData.description && (
-              <p className="text-sm text-gray-600 mt-1">
-                {formData.description}
-              </p>
-            )}
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-gray-600">Forma de Pagamento</p>
-              <p className="font-medium text-gray-900">
-                {formData.paymentMethod === "pix" && "PIX"}
-                {formData.paymentMethod === "creditCard" && "Cartão de Crédito"}
-                {formData.paymentMethod === "debitCard" && "Cartão de Débito"}
-                {formData.paymentMethod === "bankTransfer" &&
-                  "Transferência Bancária"}
-                {formData.paymentMethod === "cash" && "Dinheiro"}
-                {formData.paymentMethod === "other" && "Outro"}
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-gray-600">Data</p>
-              <p className="font-medium text-gray-900">
-                {formData.date ? formatDate(formData.date) : "DD/MM/AAAA"}
-              </p>
-            </div>
-          </div>
-
-          {formData.notes && (
-            <div className="text-sm text-gray-600 border-t border-gray-200 pt-4 mt-6">
-              <p className="font-medium">Observações:</p>
-              <p>{formData.notes}</p>
-            </div>
+    <>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-medium text-gray-900">Pré-visualização do Recibo</h2>
+        <PDFDownloadLink document={<ReceiptPDFDocument formData={formData} selectedClient={selectedClient} />} fileName={pdfFileName}>
+          {({ loading }) => (
+            <button className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-600 flex items-center text-sm" disabled={loading}>
+              <Download className="h-4 w-4 mr-2" />
+              {loading ? 'Gerando...' : 'Baixar PDF'}
+            </button>
           )}
-
-          <div className="border-t border-gray-200 pt-8 mt-8">
-            <div className="border-b border-gray-900 w-80 mx-auto mt-12"></div>
-            <p className="text-center text-gray-600 mt-2">Assinatura do cliente</p>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="text-xs text-center text-gray-500 mt-8">
-          Este recibo é válido como comprovante de prestação de serviço após a
-          assinatura do cliente.
-        </div>
+        </PDFDownloadLink>
       </div>
-
-      {/* Actions */}
-      <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-        <div className="flex flex-wrap gap-2 justify-center">
-          <button className="px-4 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-700 flex items-center text-sm">
-            <Send className="h-4 w-4 mr-2" />
-            Enviar por Email
-          </button>
-          <button className="px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-600 flex items-center text-sm">
-            <Download className="h-4 w-4 mr-2" />
-            Baixar PDF
-          </button>
-        </div>
+      <div style={{ height: '70vh', border: '1px solid #e2e8f0', borderRadius: '0.5rem', overflow: 'hidden' }}>
+        <PDFViewer width="100%" height="100%" showToolbar={false}>
+          <ReceiptPDFDocument formData={formData} selectedClient={selectedClient} />
+        </PDFViewer>
       </div>
-    </div>
+    </>
   );
 };
 
 export default ReceiptPreview;
+

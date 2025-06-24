@@ -14,8 +14,7 @@ const AppBar: React.FC<AppBarProps> = ({ title = "Dashboard" }) => {
   const menuItems = [
     { icon: LayoutGrid, label: "Dashboard", href: "/dashboard" },
     { icon: FileText, label: "Recibos", href: "/historico" },
-    { icon: Users, label: "Clientes", href: "#" },
-    { icon: Settings, label: "Configurações", href: "#" },
+    { icon: Users, label: "Clientes", href: "/clientes" },
   ];
 
   return (

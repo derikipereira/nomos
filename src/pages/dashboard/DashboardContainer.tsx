@@ -10,7 +10,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({
   children,
 }) => {
   return (
-    <div>
+    <div className="dashboard-container ml-14 min-h-screen flex flex-col">
       <AppBar />
       <div className="pt-16">
       {children}
