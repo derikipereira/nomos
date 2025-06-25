@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Trash2, Eye, FileText, X, Download } from 'lucide-react';
+import { Search, Trash2, Eye, FileText, X, Download, PlusCircle } from 'lucide-react'; // Ícone PlusCircle adicionado
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { PDFViewer, PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
-// --- Interfaces ---
 interface Client {
   id: string;
   name: string;
@@ -198,15 +197,24 @@ const ReceiptHistory: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between mb-8">
             <h1 className="text-2xl font-bold text-gray-900">Histórico de Recibos</h1>
-            <div className="relative mt-4 md:mt-0">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Buscar por cliente ou serviço..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            <div className="flex items-center gap-4 mt-4 md:mt-0">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="Buscar por cliente ou serviço..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <button
+                onClick={() => navigate('/novo-recibo')}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-sm hover:bg-blue-700 transition-colors"
+              >
+                <PlusCircle size={18} />
+                Novo Recibo
+              </button>
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
