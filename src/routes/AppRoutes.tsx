@@ -5,9 +5,9 @@ import Home from "../pages/landing/Home";
 import About from "../pages/landing/About";
 import Contact from "../pages/landing/Contact";
 import Login from "../pages/auth/Login";
+import Signup from "../pages/auth/signup";
 import LandingContainer from "../pages/landing/LandingContainer";
 
-// Componentes Privados (do Dashboard)
 import Dashboard from "../pages/dashboard/Dashboard";
 import NewReceipt from "../pages/dashboard/receipt/create/NewReceipt";
 import ReceiptHistory from "../pages/dashboard/receipt/ReceiptHistory";
@@ -30,6 +30,7 @@ export default function AppRoutes() {
       </Route>
 
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} /> 
 
       <Route element={<ProtectedLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
