@@ -151,7 +151,7 @@ const ClientsPage: React.FC = () => {
   }, []);
 
   const sortedAndFilteredClients = useMemo(() => {
-    let filtered = clients.filter(client =>
+    const filtered = clients.filter(client =>
       client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       client.cpf.includes(searchQuery)
     );
@@ -209,7 +209,7 @@ const ClientsPage: React.FC = () => {
             await axios.delete(`${API_URL}/${clientId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            fetchClients(); // Re-busca os clientes
+            fetchClients(); 
         } catch(error) {
             console.error("Erro ao excluir cliente:", error);
         }
@@ -281,7 +281,7 @@ const ClientsPage: React.FC = () => {
                       <tr key={client.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{client.name}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{client.cpf}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{client.createdAt}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{new Date (client.created_at).toLocaleDateString('pt-BR')}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
                           <div className="flex items-center justify-end space-x-3">
                             <button onClick={() => handleOpenModal(client)} className="text-gray-500 hover:text-blue-600" title="Editar">

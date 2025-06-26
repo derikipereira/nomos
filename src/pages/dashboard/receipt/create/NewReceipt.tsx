@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode'; 
 
 import ClientInformation from './components/ClientInformation';
 import ServiceDetails from './components/ServiceDetails';
@@ -25,8 +26,17 @@ interface FormData {
   notes: string;
 }
 
+
+interface AuthUser {
+  name: string;
+  document: string;
+}
+
 const NewReceipt: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
+
+  const [authUser, setAuthUser] = useState<AuthUser | undefined>();
+
   const [formData, setFormData] = useState<FormData>({
     customerId: "",
     service_type: "",
@@ -43,20 +53,48 @@ const NewReceipt: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchClients = async () => {
+    const fetchData = async () => {
+      const token = Cookies.get('auth_token');
+      if (!token) {
+        setNotification({ message: 'Sessão inválida. Por favor, faça login novamente.', type: 'error' });
+        navigate('/login'); 
+        return;
+      }
+      
       try {
-        const token = Cookies.get('auth_token');
-        const response = await axios.get('http://localhost:3000/customers', {
-          headers: { Authorization: `Bearer ${token}` }
+
+        const decodedToken: { sub: string } = jwtDecode(token);
+        const userId = decodedToken.sub;
+
+        
+        if (!userId) {
+          throw new Error("ID do usuário não encontrado no token.");
+        }
+
+        const headers = { Authorization: `Bearer ${token}` };
+
+        const clientsPromise = axios.get('http://localhost:3000/customers', { headers });
+        const userPromise = axios.get(`http://localhost:3000/user/${userId}`, { headers });
+
+        const [clientsResponse, userResponse] = await Promise.all([clientsPromise, userPromise]);
+
+        setClients(clientsResponse.data);
+
+        const userData = userResponse.data;
+        setAuthUser({
+          name: userData.name,
+
+          document: userData.cpf || userData.cnpj || 'Não informado',
         });
-        setClients(response.data);
+
       } catch (error) {
-        console.error("Erro ao buscar clientes:", error);
-        setNotification({ message: 'Falha ao carregar a lista de clientes.', type: 'error' });
+        console.error("Erro ao carregar dados da página:", error);
+        setNotification({ message: 'Falha ao carregar dados essenciais. Tente recarregar a página.', type: 'error' });
       }
     };
-    fetchClients();
-  }, []);
+
+    fetchData();
+  }, [navigate]); 
   
   useEffect(() => {
     if (notification) {
@@ -139,6 +177,7 @@ const NewReceipt: React.FC = () => {
                 <ReceiptPreview
                   formData={formData}
                   selectedClient={selectedClient}
+                  authUser={authUser}
                 />
               </div>
             )}
@@ -150,4 +189,3 @@ const NewReceipt: React.FC = () => {
 };
 
 export default NewReceipt;
-

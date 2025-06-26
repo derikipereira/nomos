@@ -8,7 +8,7 @@ interface Customer {
   id: string;
   name: string;
   cpf: string;
-  createdAt: string;
+  created_at: string;
 }
 
 interface Receipt {
@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
     }
 
     const periodReceipts = receipts.filter(r => new Date(r.date) >= startDate);
-    const newClientsInPeriod = clients.filter(c => new Date(c.createdAt) >= startDate);
+    const newClientsInPeriod = clients.filter(c => new Date(c.created_at) >= startDate);
 
     return {
       periodReceiptsCount: periodReceipts.length,

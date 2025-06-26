@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Trash2, Eye, FileText, X, Download, PlusCircle } from 'lucide-react'; // Ícone PlusCircle adicionado
+import { Search, Trash2, Eye, FileText, X, Download, PlusCircle } from 'lucide-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode'; 
 import { PDFViewer, PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+
 
 interface Client {
   id: string;
@@ -19,72 +21,162 @@ interface Receipt {
   payment_type: string;
   date: string;
   customer: Client;
+  notes: string; 
 }
 
-interface FormDataForPDF {
-    customerId: string;
-    service_type: string;
-    description: string;
-    value: number;
-    date: string;
-    payment_type: string;
-    notes: string;
+interface AuthUser { 
+  name: string;
+  document: string;
 }
+
 
 const pdfStyles = StyleSheet.create({
   page: { fontFamily: 'Helvetica', fontSize: 11, padding: 40, backgroundColor: '#fff', color: '#333' },
-  header: { textAlign: 'center', borderBottomWidth: 1, borderBottomColor: '#eaeaea', paddingBottom: 20, marginBottom: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', color: '#1a202c' },
-  valueHeader: { fontSize: 20, fontWeight: 'bold', marginTop: 10 },
-  section: { marginBottom: 20 },
-  label: { fontSize: 10, color: '#666' },
-  content: { fontSize: 12, fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ccc', paddingBottom: 4, marginTop: 2 },
-  footer: { position: 'absolute', bottom: 30, left: 40, right: 40, textAlign: 'center', color: 'grey', fontSize: 9 },
-  signature: { borderTop: 1, borderTopColor: '#333', width: '60%', margin: 'auto', marginTop: 80, paddingTop: 5 }
+  header: { 
+    textAlign: 'center', 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#eaeaea', 
+    paddingBottom: 20, 
+    marginBottom: 30 
+  },
+  title: { 
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    color: '#1a202c' 
+  },
+  receiptNumber: { 
+    fontSize: 10,
+    color: '#6b7280',
+    marginTop: 4,
+  },
+  valueHeader: { 
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    marginTop: 10 
+  },
+  section: { 
+    marginBottom: 20 
+  },
+  sectionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  label: { 
+    fontSize: 10, 
+    color: '#666' 
+  },
+  content: { 
+    fontSize: 12, 
+    fontWeight: 'bold', 
+    borderBottomWidth: 1, 
+    borderBottomColor: '#f3f4f6', 
+    paddingBottom: 4, 
+    marginTop: 2 
+  },
+  signatureSection: {
+    marginTop: 80,
+    textAlign: 'center',
+  },
+  signatureLine: {
+    borderTop: 1,
+    borderTopColor: '#333',
+    width: '60%',
+    margin: 'auto',
+    paddingTop: 8,
+  },
+  issuerName: {
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  issuerDocument: {
+    fontSize: 10,
+    color: '#666',
+    marginTop: 2,
+  },
+  footer: { 
+    position: 'absolute', 
+    bottom: 30, 
+    left: 40, 
+    right: 40, 
+    textAlign: 'center', 
+    color: 'grey', 
+    fontSize: 9 
+  },
 });
 
-const ReceiptPDFDocument: React.FC<{ formData: FormDataForPDF, selectedClient?: Client }> = ({ formData, selectedClient }) => (
-  <Document>
+const ReceiptPDFDocument: React.FC<{
+  receipt: Receipt;
+  authUser?: AuthUser;
+}> = ({ receipt, authUser }) => (
+  <Document title={`Recibo Nº ${receipt.id}`}>
     <Page size="A4" style={pdfStyles.page}>
       <View style={pdfStyles.header}>
         <Text style={pdfStyles.title}>RECIBO</Text>
-        <Text style={pdfStyles.valueHeader}>{formData.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
+        <Text style={pdfStyles.valueHeader}>{receipt.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>
       </View>
+
       <View style={pdfStyles.section}>
-        <Text style={pdfStyles.label}>Recebemos de:</Text>
-        <Text style={pdfStyles.content}>{selectedClient?.name || '____________________'}</Text>
-        <Text style={{ ...pdfStyles.label, marginTop: 4 }}>CPF: {selectedClient?.cpf || '____________________'}</Text>
+        <Text style={pdfStyles.label}>Emitente:</Text>
+        <Text style={pdfStyles.content}>{authUser?.name || '____________________'}</Text>
+        <Text style={{ ...pdfStyles.label, marginTop: 4 }}>
+          CPF/CNPJ: {authUser?.document || '____________________'}
+        </Text>
       </View>
+
+      <View style={pdfStyles.section}>
+        <Text style={pdfStyles.label}>Recebido de:</Text>
+        <Text style={pdfStyles.content}>{receipt.customer.name}</Text>
+        <Text style={{ ...pdfStyles.label, marginTop: 4 }}>CPF: {receipt.customer.cpf}</Text>
+      </View>
+      
       <View style={pdfStyles.section}>
         <Text style={pdfStyles.label}>Referente a:</Text>
-        <Text style={pdfStyles.content}>{formData.service_type || '____________________'}</Text>
-        {formData.description && <Text style={{ ...pdfStyles.label, marginTop: 4 }}>{formData.description}</Text>}
+        <Text style={pdfStyles.content}>{receipt.service_type}</Text>
+        {receipt.description && (
+          <Text style={{ ...pdfStyles.label, marginTop: 4, fontStyle: 'italic' }}>
+            {receipt.description}
+          </Text>
+        )}
       </View>
-      <View style={{ ...pdfStyles.section, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <View><Text style={pdfStyles.label}>Forma de Pagamento:</Text><Text style={{ fontSize: 12 }}>{formData.payment_type}</Text></View>
-        <View style={{ textAlign: 'right' }}><Text style={pdfStyles.label}>Data:</Text><Text style={{ fontSize: 12 }}>{new Date(formData.date + 'T00:00:00').toLocaleDateString('pt-BR')}</Text></View>
+      
+      <View style={[pdfStyles.section, pdfStyles.sectionRow]}>
+        <View>
+          <Text style={pdfStyles.label}>Forma de Pagamento:</Text>
+          <Text style={{ fontSize: 12 }}>{receipt.payment_type}</Text>
+        </View>
+        <View style={{ textAlign: 'right' }}>
+          <Text style={pdfStyles.label}>Data de Emissão:</Text>
+          <Text style={{ fontSize: 12 }}>{new Date(receipt.date).toLocaleDateString('pt-BR')}</Text>
+        </View>
       </View>
-      {formData.notes && <View style={pdfStyles.section}><Text style={pdfStyles.label}>Observações:</Text><Text style={{ fontSize: 11 }}>{formData.notes}</Text></View>}
-      <View style={pdfStyles.signature}><Text style={{ textAlign: 'center' }}>Assinatura</Text></View>
-      <Text style={pdfStyles.footer}>Este recibo é válido como comprovante de prestação de serviço.</Text>
+      
+      {receipt.notes && (
+        <View style={pdfStyles.section}>
+          <Text style={pdfStyles.label}>Observações:</Text>
+          <Text style={{ fontSize: 11 }}>{receipt.notes}</Text>
+        </View>
+      )}
+      
+      <View style={pdfStyles.signatureSection}>
+        <View style={pdfStyles.signatureLine}>
+          <Text style={pdfStyles.issuerName}>{authUser?.name || '____________________'}</Text>
+          <Text style={pdfStyles.issuerDocument}>CPF/CNPJ: {authUser?.document || '____________________'}</Text>
+        </View>
+      </View>
+      
+      <Text style={pdfStyles.footer}>
+        Este recibo é válido como comprovante de pagamento pelos serviços descritos.
+      </Text>
     </Page>
   </Document>
 );
 
-const ViewReceiptModal: React.FC<{ receipt: Receipt | null; onClose: () => void }> = ({ receipt, onClose }) => {
+
+const ViewReceiptModal: React.FC<{ receipt: Receipt | null; onClose: () => void; authUser?: AuthUser }> = ({ receipt, onClose, authUser }) => {
   if (!receipt) return null;
 
-  const formDataForPDF: FormDataForPDF = {
-    customerId: receipt.customer.id,
-    service_type: receipt.service_type,
-    description: receipt.description,
-    value: receipt.value,
-    date: receipt.date.split('T')[0],
-    payment_type: receipt.payment_type,
-    notes: '',
-  };
-  const pdfFileName = `Recibo_${receipt.customer.name.replace(/\s/g, '_')}_${formDataForPDF.date}.pdf`;
-  const pdfDocument = <ReceiptPDFDocument formData={formDataForPDF} selectedClient={receipt.customer} />;
+  const pdfFileName = `Recibo_${receipt.customer.name.replace(/\s/g, '_')}_${receipt.date.split('T')[0]}.pdf`;
+  const pdfDocument = <ReceiptPDFDocument receipt={receipt} authUser={authUser} />;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4">
@@ -125,23 +217,43 @@ const ReceiptHistory: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewingReceipt, setViewingReceipt] = useState<Receipt | null>(null);
+  const [authUser, setAuthUser] = useState<AuthUser | undefined>(); 
 
-  const fetchReceipts = async () => {
-    setIsLoading(true);
-    try {
-      const token = Cookies.get('auth_token');
-      const response = await axios.get('http://localhost:3000/receipts', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setReceipts(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar recibos:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
-  useEffect(() => { fetchReceipts(); }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+        setIsLoading(true);
+        const token = Cookies.get('auth_token');
+        if (!token) {
+          navigate('/login');
+          return;
+        }
+
+        try {
+            const decodedToken: { sub: string } = jwtDecode(token);
+            const userId = decodedToken.sub;
+            const headers = { Authorization: `Bearer ${token}` };
+
+            const receiptsPromise = axios.get('http://localhost:3000/receipts', { headers });
+            const userPromise = axios.get(`http://localhost:3000/user/${userId}`, { headers });
+
+            const [receiptsResponse, userResponse] = await Promise.all([receiptsPromise, userPromise]);
+
+            setReceipts(receiptsResponse.data);
+
+            const userData = userResponse.data;
+            setAuthUser({
+                name: userData.name,
+                document: userData.cpf || userData.cnpj || 'Não informado',
+            });
+        } catch (error) {
+            console.error("Erro ao buscar dados:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    fetchData();
+  }, [navigate]);
 
   const filteredAndSortedReceipts = useMemo(() => {
     let filtered = receipts.filter(r => 
@@ -158,10 +270,7 @@ const ReceiptHistory: React.FC = () => {
   }, [receipts, searchQuery, sortConfig]);
 
   const handleSort = (key: string) => {
-    setSortConfig(prev => ({
-      key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
-    }));
+    setSortConfig(prev => ({ key, direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc' }));
   };
 
   const handleView = (receipt: Receipt) => {
@@ -178,10 +287,8 @@ const ReceiptHistory: React.FC = () => {
     if (window.confirm("Tem certeza que deseja excluir este recibo?")) {
       try {
         const token = Cookies.get('auth_token');
-        await axios.delete(`http://localhost:3000/receipts/${receiptId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        fetchReceipts();
+        await axios.delete(`http://localhost:3000/receipts/${receiptId}`, { headers: { Authorization: `Bearer ${token}` } });
+        setReceipts(prev => prev.filter(r => r.id !== receiptId)); 
       } catch (error) {
         console.error("Erro ao excluir recibo:", error);
         alert("Falha ao excluir o recibo.");
@@ -191,7 +298,7 @@ const ReceiptHistory: React.FC = () => {
 
   return (
     <>
-      {isModalOpen && <ViewReceiptModal receipt={viewingReceipt} onClose={handleCloseModal} />}
+      {isModalOpen && <ViewReceiptModal receipt={viewingReceipt} onClose={handleCloseModal} authUser={authUser} />}
       
       <div className="bg-gray-50 min-h-screen py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
